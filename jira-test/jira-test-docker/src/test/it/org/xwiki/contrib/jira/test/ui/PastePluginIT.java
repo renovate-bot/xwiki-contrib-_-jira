@@ -26,9 +26,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
-import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.TimeoutException;
-import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -135,7 +133,7 @@ class PastePluginIT
 
         ViewPage vp = setup.gotoPage(TEST_PAGE_REFERENCE);
 
-        String content = pasteClipboardInCKEditorAndEditWiki(vp, setup, true);
+        String content = pasteClipboardInCKEditorAndEditWiki(vp, true);
         assertEquals("[[https:~~/~~/jira.unconfigured.test/browse/TICKET-134>>"
             + "https://jira.unconfigured.test/browse/TICKET-134]]", content);
     }
@@ -147,7 +145,7 @@ class PastePluginIT
 
         ViewPage vp = setup.gotoPage(TEST_PAGE_REFERENCE);
 
-        String content = pasteClipboardInCKEditorAndEditWiki(vp, setup, true);
+        String content = pasteClipboardInCKEditorAndEditWiki(vp, true);
         assertEquals("[[http:~~/~~/localhost:8889/browse/XWIKI-1000>>http://localhost:8889/browse/XWIKI-1000]]",
             content);
     }
@@ -160,7 +158,6 @@ class PastePluginIT
         ViewPage vp = setup.gotoPage(TEST_PAGE_REFERENCE);
         WYSIWYGEditPage editPage = vp.editWYSIWYG();
         CKEditor ckEditor = new CKEditor("content").waitToLoad();
-        setup.getDriver().findElement(By.className("cke_notification_close")).click();
         String paste = Keys.chord(Keys.CONTROL, "v");
         ckEditor.getRichTextArea().sendKeys(paste);
 
@@ -180,7 +177,6 @@ class PastePluginIT
         ViewPage vp = setup.gotoPage(TEST_PAGE_REFERENCE);
         WYSIWYGEditPage editPage = vp.editWYSIWYG();
         CKEditor ckEditor = new CKEditor("content").waitToLoad();
-        setup.getDriver().findElement(By.className("cke_notification_close")).click();
         String paste = Keys.chord(Keys.CONTROL, "v");
         ckEditor.getRichTextArea().sendKeys(paste);
 
@@ -202,11 +198,10 @@ class PastePluginIT
         return wikiEditPage.getContent();
     }
 
-    private String pasteClipboardInCKEditorAndEditWiki(ViewPage page, TestUtils setup, boolean withoutFormatting)
+    private String pasteClipboardInCKEditorAndEditWiki(ViewPage page, boolean withoutFormatting)
     {
         WYSIWYGEditPage editPage = page.editWYSIWYG();
         CKEditor ckEditor = new CKEditor("content").waitToLoad();
-        setup.getDriver().findElement(By.className("cke_notification_close")).click();
 
         String paste =
             withoutFormatting ? Keys.chord(Keys.CONTROL, Keys.LEFT_SHIFT, "v") : Keys.chord(Keys.CONTROL, "v");
