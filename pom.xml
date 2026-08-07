@@ -33,9 +33,9 @@
   <groupId>org.xwiki.contrib.jira</groupId>
   <artifactId>jira</artifactId>
   <packaging>pom</packaging>
-  <name>JIRA - Parent POM</name>
+  <name>JIRA</name>
   <version>11.1.7-SNAPSHOT</version>
-  <description>Parent POM for JIRA-related modules</description>
+  <description>Provides various integration points between XWiki and JIRA.</description>
   <scm>
     <connection>scm:git:git://github.com/xwiki-contrib/jira.git</connection>
     <developerConnection>scm:git:git@github.com:xwiki-contrib/jira.git</developerConnection>
